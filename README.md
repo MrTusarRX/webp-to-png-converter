@@ -34,8 +34,4 @@ No installation is required. You can either clone the repository or directly ope
 
 ```bash
 git clone https://github.com/MrTusarRX/webp-to-png-converter.git
-cd webp-to-png-converter```
-
-
-This is your complete `README.md` without any unnecessary breaks. I hope this is now exactly what you were looking for! Let me know if you need any further adjustments.
-
+cd webp-to-png-converter
