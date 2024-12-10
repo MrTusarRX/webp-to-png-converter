@@ -5,94 +5,157 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WEBP to PNG Converter</title>
     <style>
+        /* Global styles */
         body {
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ff00ff, #00ffff);
+            background-size: 300% 300%;
+            animation: gradientAnimation 5s ease infinite;
+            color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            font-family: Arial, sans-serif;
-            color: #fff;
             height: 100vh;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            animation: neon 1.5s infinite alternate ease-in-out;
+            font-size: 3rem;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(255, 0, 255, 0.8), 0 0 30px rgba(0, 255, 255, 0.8);
+            animation: neonGlow 1.5s ease-in-out infinite alternate;
         }
 
-        @keyframes neon {
+        @keyframes neonGlow {
             0% {
-                text-shadow: 0 0 5px #ff00ff, 0 0 15px #ff00ff;
+                text-shadow: 0 0 5px rgba(255, 0, 255, 0.8), 0 0 15px rgba(0, 255, 255, 0.8);
             }
             100% {
-                text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+                text-shadow: 0 0 20px rgba(255, 0, 255, 1), 0 0 40px rgba(0, 255, 255, 1);
             }
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 12px;
+            padding: 30px;
+            width: 90%;
+            max-width: 380px;
+            box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-10px);
         }
 
         input[type="file"] {
-            padding: 10px;
+            padding: 15px;
             border-radius: 8px;
-            margin: 20px;
+            margin-bottom: 20px;
+            background-color: #ff00ff;
             border: none;
-            background-color: #fff;
+            color: #fff;
+            font-size: 1.1rem;
             cursor: pointer;
-            transition: 0.3s;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         input[type="file"]:hover {
-            background-color: #ff00ff;
-            color: #fff;
+            background-color: #ff6eff;
+            transform: scale(1.05);
         }
 
         button {
             background-color: #00ffff;
             border-radius: 8px;
-            padding: 12px 30px;
+            padding: 15px 30px;
             color: #333;
             font-size: 1.2rem;
             cursor: pointer;
-            transition: 0.3s;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
         }
 
         button:hover {
             background-color: #ff00ff;
             color: white;
+            transform: scale(1.05);
+        }
+
+        #downloadLink {
+            text-decoration: none;
+            display: block;
+            margin-top: 20px;
         }
 
         canvas {
             display: none;
         }
 
-        #downloadLink {
-            text-decoration: none;
-        }
-
+        /* Mobile responsiveness */
         @media (max-width: 600px) {
+            body {
+                background-size: 400% 400%;
+            }
+
             h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
+                margin-bottom: 20px;
+                padding: 0 10px;
+            }
+
+            .container {
+                padding: 20px;
+                width: 90%;
+                max-width: 90%;
+                box-shadow: none;
+                margin-top: 10px;
+            }
+
+            input[type="file"], button {
+                font-size: 1rem;
+                padding: 12px;
             }
 
             button {
                 font-size: 1rem;
-                padding: 10px 20px;
+                padding: 12px 25px;
+            }
+
+            #downloadLink {
+                margin-top: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <h1>Convert Your WEBP to PNG</h1>
+    <h1>WEBP to PNG Converter</h1>
 
-    <input type="file" id="fileInput" accept="image/webp">
+    <div class="container">
+        <input type="file" id="fileInput" accept="image/webp">
+        <canvas id="canvas"></canvas>
 
-    <br>
-
-    <canvas id="canvas"></canvas>
-
-    <a id="downloadLink" href="#" download>
-        <button>Download PNG</button>
-    </a>
+        <a id="downloadLink" href="#" download>
+            <button>Download PNG</button>
+        </a>
+    </div>
 
     <script>
         document.getElementById("fileInput").addEventListener("change", function(event) {
