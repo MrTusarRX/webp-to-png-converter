@@ -5,50 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WEBP to PNG Converter</title>
     <style>
-        body, h1, p, button {
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-        }
-
         body {
             background: linear-gradient(135deg, #6a11cb, #2575fc);
-            color: #fff;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            height: 100vh;
+            align-items: center;
             text-align: center;
-            font-size: 18px;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            height: 100vh;
         }
 
         h1 {
             font-size: 2.5rem;
             margin-bottom: 20px;
-            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
-            animation: neon 1.5s ease-in-out infinite alternate;
+            animation: neon 1.5s infinite alternate ease-in-out;
         }
 
         @keyframes neon {
             0% {
-                text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 15px #ff00ff, 0 0 20px #ff00ff;
+                text-shadow: 0 0 5px #ff00ff, 0 0 15px #ff00ff;
             }
             100% {
-                text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff, 0 0 40px #00ffff;
+                text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
             }
         }
 
         input[type="file"] {
-            margin: 20px;
             padding: 10px;
-            background-color: #fff;
+            border-radius: 8px;
+            margin: 20px;
             border: none;
-            color: #333;
-            font-size: 1rem;
+            background-color: #fff;
             cursor: pointer;
             transition: 0.3s;
-            border-radius: 8px;
         }
 
         input[type="file"]:hover {
@@ -58,27 +48,27 @@
 
         button {
             background-color: #00ffff;
-            padding: 12px 30px;
-            font-size: 1.2rem;
-            color: #333;
-            border: none;
-            cursor: pointer;
             border-radius: 8px;
+            padding: 12px 30px;
+            color: #333;
+            font-size: 1.2rem;
+            cursor: pointer;
             transition: 0.3s;
         }
 
         button:hover {
             background-color: #ff00ff;
-            color: #fff;
+            color: white;
+        }
+
+        canvas {
+            display: none;
         }
 
         #downloadLink {
             text-decoration: none;
         }
 
-        canvas {
-            display: none;
-        }
         @media (max-width: 600px) {
             h1 {
                 font-size: 2rem;
@@ -92,40 +82,50 @@
     </style>
 </head>
 <body>
-    <h1>WEBP to PNG Converter</h1>
+    <h1>Convert Your WEBP to PNG</h1>
+
     <input type="file" id="fileInput" accept="image/webp">
-    <br><br>
+
+    <br>
+
     <canvas id="canvas"></canvas>
-    <a id="downloadLink" href="#" download="">
+
+    <a id="downloadLink" href="#" download>
         <button>Download PNG</button>
     </a>
 
     <script>
-        document.getElementById("fileInput").addEventListener("change", function (event) {
+        document.getElementById("fileInput").addEventListener("change", function(event) {
             const file = event.target.files[0];
-
             if (file && file.type === "image/webp") {
                 const reader = new FileReader();
-                reader.onload = function (e) {
+
+                reader.onload = function(e) {
                     const img = new Image();
-                    img.onload = function () {
+                    img.onload = function() {
                         const canvas = document.getElementById("canvas");
                         const ctx = canvas.getContext("2d");
+
                         canvas.width = img.width;
                         canvas.height = img.height;
+
                         ctx.drawImage(img, 0, 0);
+
                         const dataURL = canvas.toDataURL("image/png");
                         const downloadLink = document.getElementById("downloadLink");
-                        const originalFileName = file.name.replace(/\.webp$/, ".png");  
+
+                        const originalFileName = file.name.replace(/\.webp$/, ".png");
                         downloadLink.href = dataURL;
-                        downloadLink.download = originalFileName;  
-                        downloadLink.style.display = "inline"; 
+                        downloadLink.download = originalFileName;
+                        downloadLink.style.display = "inline";
                     };
-                    img.src = e.target.result;  
+
+                    img.src = e.target.result;
                 };
-                reader.readAsDataURL(file);  
+
+                reader.readAsDataURL(file);
             } else {
-                alert("Please select a valid WEBP image.");
+                alert("Oops! Please upload a valid WEBP image.");
             }
         });
     </script>
