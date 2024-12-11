@@ -19,7 +19,7 @@ You can try the tool directly by visiting the live demo [here](https://mrtusarrx
 
 ## Screenshot
 
-![WEBP to PNG Converter Screenshot](assets/Screenshot.png)  
+![WEBP to PNG Converter Screenshot](./Screenshot.png)  
 
 
 ## How to Use
