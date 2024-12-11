@@ -15,12 +15,12 @@ A simple, fast, and interactive web-based tool that allows users to easily conve
 
 ## Demo
 
-You can try the tool directly by visiting the live demo [here](https://example.com) *(replace with your actual live demo link)*.
+You can try the tool directly by visiting the live demo [here](https://mrtusarrx.github.io/webp-to-png-converter/) 
 
 ## Screenshot
 
 ![WEBP to PNG Converter Screenshot](assets/screenshot.png)  
-*(Replace with an actual screenshot of your project)*.
+
 
 ## How to Use
 
